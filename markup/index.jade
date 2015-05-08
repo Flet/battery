@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+    head
+        title Battery
+
+        link(rel="stylesheet",href="#{locals['dist/main.css'] ? locals['dist/main.css'].substr(5) : 'main.css'}")
+      body
+        script(src="#{locals['dist/bundle.js'] ? locals['dist/bundle.js'].substr(5) : 'bundle.js'}")
+
+        div(class="battery")
+            span(style="height: 100%")

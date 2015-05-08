@@ -1,0 +1,50 @@
+{
+  "name": "battery",
+  "description": "fun with battery api",
+  "version": "1.0.0",
+  "author": "Dan Flettre <fletd01@yahoo.com>",
+  "bugs": {
+    "url": "https://github.com/flet/battery/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.6.4",
+    "browserify": "^9.0.8",
+    "faucet": "0.0.1",
+    "hashmark": "^2.0.2",
+    "http-server": "^0.8.0",
+    "jade": "^1.9.2",
+    "parallelshell": "^1.1.1",
+    "rimraf": "^2.3.2",
+    "standard": "*",
+    "tape": "^4.0.0",
+    "watch": "^0.16.0",
+    "watchify": "^3.1.1"
+  },
+  "homepage": "https://github.com/flet/battery",
+  "keywords": [
+    "api",
+    "batter",
+    "css",
+    "web"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flet/battery.git"
+  },
+  "scripts": {
+    "test": "standard && faucet",
+    "clean": "rimraf dist/*",
+    "prebuild": "npm run clean -s",
+    "build:scripts": "browserify client/index.js | hashmark -n dist/bundle.js -s -l 8 -m dist/assets.json 'dist/{name}-{hash}{ext}'",
+    "build:jade": "jade --pretty --no-debug --obj dist/assets.json -o dist markup/index.jade",
+    "build:assets": "cp -a assets/* dist/",
+    "build": "npm run build:scripts && npm run build:jade && npm run build:assets",
+    "watch": "npm run clean && parallelshell 'npm run watch:scripts' 'npm run watch:jade' 'npm run watch:assets' 'npm run livereload'",
+    "watch:scripts": "watchify -v -o dist/bundle.js client/index.js",
+    "watch:jade": "watch -n 0 'jade --pretty markup/index.jade -o dist' markup",
+    "watch:assets": "watch -n 0 'npm run build:assets' assets",
+    "livereload": "cd dist && browser-sync start --server --files=\"*.html, *.js, *.css\""
+  }
+}
