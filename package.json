@@ -34,7 +34,7 @@
     "url": "https://github.com/flet/battery.git"
   },
   "scripts": {
-    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "deploy": "git push origin `git subtree split --prefix dist master`:gh-pages --force",
     "test": "standard && faucet",
     "clean": "rimraf dist/*",
     "prebuild": "npm run clean -s",
